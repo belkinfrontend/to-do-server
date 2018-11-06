@@ -26,9 +26,10 @@ router.post('/:columnId', (req, res) => {
   try {
     console.log(req.body);
     const postData = {
+      id: req.body.id,
       title: req.body.title,
       text: req.body.text,
-      data: req.body.data,
+      date: req.body.date,
       time: req.body.time
     }
     columns.find(({ id }) => id === req.params.columnId).items.push(postData);
@@ -43,53 +44,21 @@ router.post('/:columnId', (req, res) => {
 
 // http://localhost:5000/api/columns (DELETE)
 router.delete('/:columnId', async (req, res) => {
-  console.log(req.params)
+  //console.log(req.params)
   columns = columns.filter(({ id }) => id !== req.params.columnId);
-  //columns.remove({id: columnId})
   
   res.status(200).json({
-    message: 'Уда'
+    message: 'Удалено'
   })
 })
-//   // ===============
-  
-// //   // http://localhost:5000/api/post (POST)
-// // router.post('/columns/:columnId', async (req, res) => {
-// //   const postData = {
-// //     title: req.body.title,
-// //     text: req.body.text
-// //   }
-// //   const columnId = req.params.columnId;
-// //   /*
-// //     - take column with id = columnId from DB
-// //     - create new todo item
-// //     - put new todo item into column
-// //     - write column to DB
-// //     - return in response this updated column
-// //   */
 
-// //   const post = new Post(postData)
+router.delete('/:columnId/:postId', async (req, res) => {
+  //columns = columns.items.filter(({ id }) => id !== req.params.postId);
 
-// //   await post.save()
-// //   res.status(201).json(post)
-// // })
-
-
-//   // ===============
-
-//   const post = new Post(postData)
-
-//   await post.save()
-//   res.status(201).json(post)
-// })
-
-// // http://localhost:5000/api/post/23 (DELETE)
-// router.delete('/:postId', async (req, res) => {
-//   await Post.remove({_id: req.params.postId})
-//   res.status(200).json({
-//     message: 'Удалено'
-//   })
-// })
+  res.status(200).json({
+    message: 'Удалено'
+  })
+})
 
 
 module.exports = router

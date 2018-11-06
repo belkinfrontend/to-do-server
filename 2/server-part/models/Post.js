@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const postSchema = new Schema({
+  id: {
+    type: String,
+    default: Math.floor(Math.random()*111111)
+  },
   title: {
     type: String,
     required: true

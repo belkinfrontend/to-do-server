@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
-const postRouter = require('./routes/post');
+// const postRouter = require('./routes/post');
 const columnsRouter = require('./routes/columns');
 const keys = require('./keys');
 
@@ -18,7 +18,7 @@ mongoose.connect(keys.mongoURI)
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/api/post', postRouter);
+// app.use('/api/post', postRouter);
 app.use('/api/columns', columnsRouter);
 app.use(express.static(clientPath));
 
