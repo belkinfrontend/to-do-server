@@ -52,8 +52,9 @@ router.delete('/:columnId', async (req, res) => {
   })
 })
 
-router.delete('/:columnId/:postId', async (req, res) => {
+router.delete('/deleteItem/:columnId/:postId', async (req, res) => {
   //columns = columns.items.filter(({ id }) => id !== req.params.postId);
+  console.log(req.params);
 
   res.status(200).json({
     message: 'Удалено'
