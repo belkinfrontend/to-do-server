@@ -43,6 +43,8 @@ router.post('/:columnId', (req, res) => {
 
 
 // http://localhost:5000/api/columns (DELETE)
+// remove column
+
 router.delete('/:columnId', async (req, res) => {
   //console.log(req.params)
   columns = columns.filter(({ id }) => id !== req.params.columnId);
@@ -52,6 +54,8 @@ router.delete('/:columnId', async (req, res) => {
   })
 })
 
+// remove post from column
+
 router.delete('/:columnId/posts/:postId', async (req, res) => {
   const column = columns.find(({ id }) => id === req.params.columnId);
   column.items = column.items.filter(({ id }) => id !== req.params.postId);
@@ -59,6 +63,13 @@ router.delete('/:columnId/posts/:postId', async (req, res) => {
 
   res.status(200).json({
     message: 'Post was removed!'
+  })
+})
+
+// update post (PUT)
+router.put('/:columnId/posts/:postId', async (req, res) => {
+  res.status(200).json({
+    message: 'Updated!'
   })
 })
 

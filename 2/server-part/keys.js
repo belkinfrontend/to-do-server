@@ -1,3 +1,3 @@
 module.exports = {
-  mongoURI: 'mongodb://belkin.frontend:131313belkinfrontend@ds137863.mlab.com:37863/js-server'
+  mongoURI: 'mongodb://belkinfrontend:131313jevo@ds121182.mlab.com:21182/prello-server'
 }
