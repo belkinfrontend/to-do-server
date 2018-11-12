@@ -68,6 +68,19 @@ router.delete('/:columnId/posts/:postId', async (req, res) => {
 
 // update post (PUT)
 router.put('/:columnId/posts/:postId', async (req, res) => {
+  console.log(req.params);
+  const data = req.body;
+  const column = columns
+    .find((columnData) => columnData.id === req.params.columnId);
+
+  column.items = column.items.map(item => {
+    if (item.id === data.id) {
+      return data;
+    } else {
+      return item;
+    }
+  })
+
   res.status(200).json({
     message: 'Updated!'
   })
