@@ -2,7 +2,18 @@ const express = require('express')
 const router = express.Router()
 // const Post = require('../models/Post')
 
-let columns = [];
+let columns = [
+  {
+    id: "000000",
+    items: [],
+    name: "To Do",
+  },
+  {
+    id: "000001",
+    items: [],
+    name: "Done",
+  }
+];
 
 // http://localhost:5000/api/columns (GET)
 router.get('/', async (req, res) => {
