@@ -4,14 +4,15 @@ const router = express.Router()
 
 let columns = [
   {
-    id: "000000",
-    items: [],
     name: "To Do",
+    id: "000000",
+    items: []
+    
   },
   {
-    id: "000001",
-    items: [],
     name: "Done",
+    id: "000001",
+    items: []    
   }
 ];
 
@@ -31,6 +32,17 @@ router.post('/', async (req, res) => {
 
   res.sendStatus(200);
 
+});
+
+router.post('/toggle', (req, res) => {
+  const {
+    srcColId,
+    itemId,
+    destColId
+  } = req.body;
+
+  console.log(`moving item ${itemId} from col ${srcColId} to ${destColId}`);
+  res.sendStatus(200);
 });
 
 router.post('/:columnId', (req, res) => {
