@@ -31,7 +31,6 @@ router.post('/', async (req, res) => {
   columns.push(columnData);
 
   res.sendStatus(200);
-
 });
 
 router.post('/toggle', (req, res) => {
@@ -40,41 +39,66 @@ router.post('/toggle', (req, res) => {
     itemId,
     destColId
   } = req.body;
-
-  console.log(`moving item ${itemId} from col ${srcColId} to ${destColId}`);
-  res.sendStatus(200);
+        
+  try {
+    const currentColumn = columns.find(({ id }) => id === srcColId);
+    const destColumn = columns.find(({ id }) => id === destColId);
+    const item = currentColumn.items.find(({ id }) => id == itemId);
+    currentColumn.items = currentColumn.items.filter(({ id }) => id !== itemId);
+    destColumn.items.push(item);
+  } catch(err) {
+    res.status(500).json({ message: err.message });
+  }
+  res.status(200).json(columns);
 });
 
 router.post('/:columnId', (req, res) => {
-  try {
-    console.log(req.body);
-    const postData = {
-      id: req.body.id,
-      title: req.body.title,
-      text: req.body.text,
-      date: req.body.date,
-      time: req.body.time
+  if (req.body.text.length > 240) {
+    res.status(500).json({
+      message: 'Maximum text size exceeded'
+    });
+  } else {
+    try {
+      console.log(req.body);
+      const postData = {
+        id: req.body.id,
+        title: req.body.title,
+        text: req.body.text,
+        date: req.body.date,
+        time: req.body.time
+      }
+      columns.find(({ id }) => id === req.params.columnId).items.push(postData);
+    } catch(err) {
+      console.log('ERROR OCURRED!');
+      res.sendStatus(500);
     }
-    columns.find(({ id }) => id === req.params.columnId).items.push(postData);
-  } catch(err) {
-    console.log('ERROR OCURRED!');
-    res.sendStatus(403);
-  }
 
-  res.sendStatus(200);
+    res.sendStatus(200);
+  }
 });
 
 
 // http://localhost:5000/api/columns (DELETE)
 // remove column
-
 router.delete('/:columnId', async (req, res) => {
-  //console.log(req.params)
-  columns = columns.filter(({ id }) => id !== req.params.columnId);
-  
-  res.status(200).json({
-    message: 'Column was removed!'
-  })
+  if (['000000', '000001'].includes(req.params.columnId)) {
+    res.status(403).json({
+      error: true,
+      message: 'Cannot delete basic column'
+    });
+  } else {
+    try {
+      columns = columns.filter(({ id }) => id !== req.params.columnId);
+    }
+    catch(err) {
+      console.log('ERROR OCURRED!');
+      res.sendStatus(500);
+    }
+    
+    res.status(200).json({
+      message: 'Column was removed!'
+    });
+  }
 })
 
 // remove post from column
@@ -96,13 +120,17 @@ router.put('/:columnId/posts/:postId', async (req, res) => {
   const column = columns
     .find((columnData) => columnData.id === req.params.columnId);
 
-  column.items = column.items.map(item => {
-    if (item.id === data.id) {
-      return data;
-    } else {
-      return item;
-    }
-  })
+  try {
+    column.items = column.items.map(item => {
+      if (item.id === data.id) {
+        return data;
+      } else {
+        return item;
+      }
+    })
+  } catch(e) {
+    res.status(500).json({ message: e.message });
+  }
 
   res.status(200).json({
     message: 'Updated!'
@@ -110,4 +138,4 @@ router.put('/:columnId/posts/:postId', async (req, res) => {
 })
 
 
-module.exports = router
+module.exports = router;
