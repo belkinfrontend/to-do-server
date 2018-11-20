@@ -1,24 +1,17 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
-// const postRouter = require('./routes/post');
 const columnsRouter = require('./routes/columns');
-const keys = require('./keys');
 
 const cors = require('cors');
 
 const port = process.env.PORT || 5000;
 const clientPath = path.join(__dirname, 'client');
 
-mongoose.connect(keys.mongoURI)
-  .then(() => console.log('MongoDB connected.'))
-  .catch(err => console.error(err))
-
 const app = express();
+
 app.use(cors());
 app.use(bodyParser.json());
-// app.use('/api/post', postRouter);
 app.use('/api/columns', columnsRouter);
 app.use(express.static(clientPath));
 
