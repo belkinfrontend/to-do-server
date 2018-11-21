@@ -14,6 +14,10 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
+  day: {
+    type: Date,
+    default: new Date().getDate()
+  },
   date: {
     type: Date,
     default: new Date().toDateString()

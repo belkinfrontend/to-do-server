@@ -21,6 +21,12 @@ router.get('/', async (req, res) => {
   res.status(200).json(columns);
 })
 
+router.get('/items', async (req, res) => {
+  const items = columns.reduce((acc, next) => acc.concat(next.items), []);
+
+  res.status(200).json(items);
+})
+
 // http://localhost:5000/api/columns (POST)
 router.post('/', async (req, res) => {
   const columnData = {
@@ -44,6 +50,7 @@ router.post('/toggle', (req, res) => {
     const currentColumn = columns.find(({ id }) => id === srcColId);
     const destColumn = columns.find(({ id }) => id === destColId);
     const item = currentColumn.items.find(({ id }) => id == itemId);
+    item.isDone = true;
     currentColumn.items = currentColumn.items.filter(({ id }) => id !== itemId);
     destColumn.items.push(item);
   } catch(err) {
@@ -64,6 +71,7 @@ router.post('/:columnId', (req, res) => {
         id: req.body.id,
         title: req.body.title,
         text: req.body.text,
+        day: req.body.day,
         date: req.body.date,
         time: req.body.time
       }
