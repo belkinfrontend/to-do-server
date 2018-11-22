@@ -109,11 +109,9 @@ router.post('/:columnId', (req, res) => {
       console.log('ERROR OCURRED!');
       res.sendStatus(500);
     }
-
     res.sendStatus(200);
   }
 });
-
 
 // http://localhost:5000/api/columns (DELETE)
 // remove column
