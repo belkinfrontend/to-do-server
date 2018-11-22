@@ -5,12 +5,42 @@ let columns = [
   {
     name: "To Do",
     id: "000000",
-    items: []
+    items: [
+      {
+        date: "20 November 2018",
+        day: 20,
+        id: "47fcb2",
+        rawDate: "2018-11-20T10:19:17.824Z",
+        text: "Buy some veggies for dinner",
+        time: "18:19",
+        title: "Buy some veggies"
+      },
+      {
+        date: "19 November 2018",
+        day: 19,
+        id: "40fcb2",
+        rawDate: "2018-11-19T10:19:17.824Z",
+        text: "Repair bike",
+        time: "18:19",
+        title: "Repair bike, fix gears"
+      }
+    ]
   },
   {
     name: "Done",
     id: "000001",
-    items: []    
+    items: [
+      {
+        date: "15 November 2018",
+        day: 15,
+        id: "49fcb2",
+        isDone: true,
+        rawDate: "2018-11-15T10:19:17.824Z",
+        text: "watch come animations",
+        time: "18:19",
+        title: "Watch Brickleberry"
+      }
+    ]
   }
 ];
 
@@ -71,7 +101,8 @@ router.post('/:columnId', (req, res) => {
         text: req.body.text,
         day: req.body.day,
         date: req.body.date,
-        time: req.body.time
+        time: req.body.time,
+        rawDate: req.body.rawDate
       }
       columns.find(({ id }) => id === req.params.columnId).items.push(postData);
     } catch(err) {
