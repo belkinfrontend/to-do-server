@@ -1,16 +1,15 @@
 {
-  "name": "fullstack-blog",
+  "name": "to-do",
   "version": "1.0.0",
-  "description": "simple blog",
+  "description": "To Do",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
   "keywords": [
-    "blog",
-    "nodejs",
-    "fullstack"
+    "To Do",
+    "nodejs"
   ],
   "author": "Vladilen Minin",
   "license": "ISC",

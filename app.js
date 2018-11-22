@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const columnsRouter = require('./routes/columns');
-
 const cors = require('cors');
 
 const port = process.env.PORT || 5000;
