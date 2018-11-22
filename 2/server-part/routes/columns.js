@@ -1,13 +1,11 @@
-const express = require('express')
-const router = express.Router()
-// const Post = require('../models/Post')
+const express = require('express');
+const router = express.Router();
 
 let columns = [
   {
     name: "To Do",
     id: "000000",
     items: []
-    
   },
   {
     name: "Done",
